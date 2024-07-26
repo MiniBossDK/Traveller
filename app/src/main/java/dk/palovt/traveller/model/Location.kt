@@ -1,4 +1,4 @@
-package dk.palovt.traveller.dao
+package dk.palovt.traveller.model
 
 data class Location(
     val latitude: Float,

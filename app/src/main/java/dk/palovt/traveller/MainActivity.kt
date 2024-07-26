@@ -1,6 +1,7 @@
 package dk.palovt.traveller
 
 import android.os.Bundle
+import android.widget.AutoCompleteTextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +27,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -34,6 +36,7 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -70,23 +73,30 @@ fun TopBar() {
 }
 
 @Composable
+fun LocationInputField(label: String) {
+    var text by remember { mutableStateOf("") }
+    TextField(value = text,
+        onValueChange = {},
+        label = { Text(label) },
+        singleLine = true
+    )
+}
+
+@Composable
 fun TravelComposer() {
+    var text by remember { mutableStateOf("") }
+
     Column(
         Modifier
             .fillMaxWidth()
             .background(Color.DarkGray)
             .padding(10.dp)) {
-        TextField(value = "From", onValueChange = {},
-            Modifier
-                .fillMaxWidth(0.8f)
-                .align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.padding(horizontal = 10.dp))
-        TextField(value = "To", onValueChange = {},
-            Modifier
-                .fillMaxWidth(0.8f)
-                .align(Alignment.CenterHorizontally)
-        )
+        Column(Modifier.align(Alignment.CenterHorizontally)) {
+            LocationInputField(label = "From")
+            Spacer(modifier = Modifier.padding(horizontal = 10.dp))
+            LocationInputField(label = "To")
+        }
+
         ElevatedButton(onClick = { /*TODO*/ },
             Modifier
                 .align(Alignment.CenterHorizontally)
